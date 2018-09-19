@@ -2,6 +2,9 @@ package application;
 
 public class  Game {
 
+    static String consoleTXT;
+	String inputTXT;
+	boolean input;
 	Raum CurrentRoom;
 	Raum StartRaum;
 	Raum MittlererRaum;
@@ -12,7 +15,7 @@ public class  Game {
 	int initrooms = 1;
 	Raum[] extrarooms;
 	
-	Skills Skills;
+	
 	Player player;
 	Controller GUI;
 	Fights FIGHT;
@@ -65,7 +68,6 @@ public class  Game {
 		
 		FIGHT = new Fights(GUI, this);
 		player = GUI.getPlayer();
-		Skills = new Skills();
 	}
 	
 	public void goNorth() {

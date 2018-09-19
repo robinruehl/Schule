@@ -8,7 +8,7 @@ public class Raum {
 	private Raum SuedRaum;
 	private Raum WestRaum;
 	//Erster Konstruktor
-	Raum() {
+	public Raum() {
 		this.bescshreibung = "placeholder";
 		this.NordRaum = null;
 		this.SuedRaum = null;
@@ -17,7 +17,7 @@ public class Raum {
 		this.Enemy = false;
 	}
 	//Zweiter Konstruktor
-	Raum(String beschreibung, Raum NordRaum, Raum OstRaum, Raum SuedRaum, Raum WestRaum, boolean Enemy) {
+	public Raum(String beschreibung, Raum NordRaum, Raum OstRaum, Raum SuedRaum, Raum WestRaum, boolean Enemy) {
 		this.bescshreibung = beschreibung;
 		this.NordRaum = NordRaum;
 		this.SuedRaum = SuedRaum;

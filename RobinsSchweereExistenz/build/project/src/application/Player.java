@@ -15,8 +15,6 @@ public class Player {
 	 float experience;
 	 int level;
 	 int perkpoints;
-	 float healthPotsHeal = 40;
-	 int healthPotDropChance = 50; //in %
 	 
 	 Player() {
 		 this.luck = 10;
@@ -24,7 +22,7 @@ public class Player {
 		 this.health = 100;
 		 this.maxHealth = 100;
 		 this.attackDamage = 50;
-		 this.accuracy = 25;
+		 this.accuracy = 50;
 		 this.healthPots = 10;
 		 this.intelligence = 10;
 		 this.experience = 0;
@@ -32,26 +30,6 @@ public class Player {
 		 this.perkpoints = 25;
 		}
 	 
-	 
-	 
-	public int getXpToMax() {
-		int xptomax = 50+level*50;
-		return xptomax;
-	}
-	
-	public float getHitChance() {
-		float temp = luck;
-		float temp2 = 1;
-		float hitchance = accuracy;
-		while(temp>0) {
-			hitchance = hitchance+100/(8*temp2);
-			temp--;
-			temp2++;
-		}
-		System.out.println(hitchance);
-		return hitchance;
-	}
-	
 	public int getAccuracy() {
 		return accuracy;
 	}
@@ -132,4 +110,6 @@ public class Player {
 	public  void setHealthPotDropChance(int healthPotDropChance) {
 		this.healthPotDropChance = healthPotDropChance;
 	}
+	 float healthPotsHeal = 40;
+	 int healthPotDropChance = 50; //in %
 }

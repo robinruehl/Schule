@@ -102,10 +102,10 @@
                         </AnchorPane>
                         <AnchorPane layoutX="201.0" prefHeight="150.0" prefWidth="100.0">
                            <children>
-                              <Button fx:id="increaseDamageStat" layoutX="-1.0" layoutY="45.0" mnemonicParsing="false" onAction="#incAtt" text="+1" />
-                              <Button fx:id="increaseHealthStat" layoutX="-1.0" layoutY="15.0" mnemonicParsing="false" onAction="#incMaxHealth" text="+1" />
-                              <Button fx:id="increaseLuckStat" layoutX="-1.0" layoutY="75.0" mnemonicParsing="false" onAction="#incLuck" text="+1" />
-                              <Button fx:id="increaseIntelligenceStat" layoutX="-1.0" layoutY="105.0" mnemonicParsing="false" onAction="#init" text="+1" />
+                              <Button fx:id="increaseDamageStat" layoutX="-1.0" layoutY="45.0" mnemonicParsing="false" text="+1" />
+                              <Button fx:id="increaseHealthStat" layoutX="-1.0" layoutY="15.0" mnemonicParsing="false" text="+1" />
+                              <Button fx:id="increaseLuckStat" layoutX="-1.0" layoutY="75.0" mnemonicParsing="false" text="+1" />
+                              <Button fx:id="increaseIntelligenceStat" layoutX="-1.0" layoutY="105.0" mnemonicParsing="false" text="+1" />
                               <Text layoutX="39.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Perkpoints" />
                               <Text fx:id="perkpoints" layoutX="34.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Points">
                                  <font>

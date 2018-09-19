@@ -47,8 +47,8 @@ public class Fights {
 	}
 	
 	private  void Fight() {
+		enemy = new Enemy();
 		player = GUI.getPlayer();
-		enemy = new Enemy(player);
 		GUI.update(player);
 		encounter();
 	}
@@ -59,7 +59,7 @@ public class Fights {
     	System.out.println("slash");
     	int acc = rand.nextInt(100);
     	GUI.consoleWrite("Du würfelst " + acc);
-    	if (player.getHitChance() >= acc) {
+    	if (player.accuracy >= acc) {
         	int temp = player.getAttackDamage();
         	enemy.setEnemyHealth(enemy.getEnemyHealth()-temp);
         	GUI.consoleWrite("Du triffst " + enemy.enemyname + " für " + temp + " Schaden und " + enemy.enemyname + " hat noch " + enemy.getEnemyHealth() + " Leben!");
@@ -91,7 +91,7 @@ public class Fights {
     	while (trys > 0) {
     		acc = rand.nextInt(100);
     		GUI.consoleWrite("Du würfelst " + acc);
-    		if (player.getHitChance() >= acc) {
+    		if (player.accuracy >= acc) {
             	int temp = rand.nextInt(player.getAttackDamage()/2)+5;
             	
             	enemy.setEnemyHealth(enemy.getEnemyHealth()-temp);
@@ -132,7 +132,7 @@ public class Fights {
     		acc = rand.nextInt(100);
     		GUI.consoleWrite("Der Gegner greift dich an!");
     		GUI.consoleWrite("Du würfelst " + acc);
-    		if (player.getHitChance() > acc) {
+    		if (player.getAccuracy() > acc) {
     			GUI.consoleWrite("Due kannst den Gegnerischen Angriff mit deinem Schild abwenden!");
     		}
     		else {
@@ -266,7 +266,6 @@ public class Fights {
 		else if (enemy.getEnemyHealth()<=0) {
 			System.out.println("enemy ded");
 			GUI.consoleWrite("Der Gegner ist gestorben!");
-			xpdrop();
 			GAME.CurrentRoom.setenemy(false);
 		}
 		else {
@@ -284,18 +283,5 @@ public class Fights {
 		GUI.consoleWrite("\t Was willst du machen? \n");
 		yourTurn = true;
 		GAME.encounterIsWaitingForInput = true;
-	}
-	
-	private void xpdrop() {
-		int exp = (5*(player.getIntelligence()/2)*enemy.getLevel()/2)+(rand.nextInt(50)*player.getLuck()/20);
-		GUI.consoleWrite("Du erhältst vom Gegner " + exp + "Erfahrung!");
-		player.setExperience((player.getExperience()+exp));
-		if (player.getExperience()>player.getXpToMax()) {
-			player.setExperience(player.getExperience()-player.getXpToMax());
-			player.setLevel(player.getLevel()+1);
-			player.setPerkpoints(player.getPerkpoints()+1);
-			GUI.consoleWrite("Du erreichst das Level" + player.getLevel() + " und hast noch " + player.getPerkpoints() + " Meisterschaftspunkte!");
-		}
-		GUI.update(player);
 	}
 }
