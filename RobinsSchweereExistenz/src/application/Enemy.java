@@ -14,10 +14,11 @@ public class Enemy {
 	int enemyNBR;
 	int accuracy;
 	
-	Enemy() {
+	Enemy(Player player) {
 		this.enemyHealth = (rand.nextInt(maxEnemyHealth/2)+maxEnemyHealth/2);
 		this.enemyname = enemies[rand.nextInt(enemies.length)];
 		this.accuracy = rand.nextInt(40) + 30;
+		this.level = player.getLevel();
 	}
 	
 	public int getEnemyNBR() {

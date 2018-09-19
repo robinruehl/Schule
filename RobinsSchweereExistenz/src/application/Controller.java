@@ -140,13 +140,16 @@ public class Controller {
 		enemyHealthbar.setProgress(enemyHealth/enemyNewHealth);
 		enemyhpAmmount.setText("" + enemyHealth);
 		enemyName.setText(enemy);
-		menuPlayerMaxHealth.setText(""+maxHealth);
-		menuPlayerAttackDamage.setText(""+maxAttackDamage);
-		menuPlayerLuck.setText(""+Luck);
-		menuPlayerIntelligence.setText(""+intelligence);
+		
 		perkpoints.setText(""+pp);
 		*/
-    	
+    	menuPlayerMaxHealth.setText(""+player.getMaxHealth());
+		menuPlayerAttackDamage.setText(""+player.getAttackDamage());
+		menuPlayerLuck.setText(""+player.getLuck());
+		menuPlayerIntelligence.setText(""+player.getIntelligence());
+    	playerLevel.setText(""+player.getLevel());
+    	playerXperienceDisplay.setText(""+player.getExperience()+"/"+player.getXpToMax());
+    	xpBar.setProgress(player.getExperience()/player.getXpToMax());
 		hppotAmmount.setText("" + player.getHealthPots());
 		healthBar.setProgress(player.getHealth()/player.getMaxHealth());
 		hpAmmount.setText("" + player.getHealth());
@@ -261,6 +264,23 @@ public class Controller {
 		hppotAmmount.setText(""+pots);
 	}
     
+	public void incMaxHealth () {
+		GAME.Skills.skillincr(1, player);
+		update(player);
+	}
+	public void incAtt () {
+		GAME.Skills.skillincr(2, player);
+		update(player);
+	}
+	public void incLuck () {
+		GAME.Skills.skillincr(3, player);
+		update(player);
+	}
+	public void incInt () {
+		GAME.Skills.skillincr(4, player);
+		update(player);
+	}
+	
 	public TextField getConsoleinp() {
 		return consoleinp;
 	}
