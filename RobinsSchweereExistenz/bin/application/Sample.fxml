@@ -50,12 +50,12 @@
                         <Button layoutX="641.0" layoutY="237.0" mnemonicParsing="false" onAction="#goEast" text="→" />
                         <Button layoutX="619.0" layoutY="262.0" mnemonicParsing="false" onAction="#goSoutht" text="↓" />
                         <Button layoutX="592.0" layoutY="237.0" mnemonicParsing="false" onAction="#goWest" text="←" />
-                        <AnchorPane layoutX="591.0" layoutY="14.0" prefHeight="184.0" prefWidth="196.0">
+                        <AnchorPane layoutX="579.0" layoutY="14.0" prefHeight="185.0" prefWidth="216.0">
                            <children>
-                              <AnchorPane layoutX="101.0" prefHeight="185.0" prefWidth="103.0">
+                              <AnchorPane fx:id="AnchorPlayer" layoutX="108.0" prefHeight="185.0" prefWidth="103.0">
                                  <children>
                                     <ProgressBar id="healthBar" fx:id="healthBar" layoutY="48.0" maxHeight="1.0" prefHeight="1.0" prefWidth="103.0" progress="0.51" stylesheets="@../../../ddad/src/application/application.css" />
-                                    <Text layoutX="5.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player Health" />
+                                    <Text layoutX="17.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spieler Leben" />
                                     <ProgressBar id="xpbar" layoutY="100.0" maxHeight="1.0" prefHeight="1.0" prefWidth="103.0" progress="0.5" fx:id="xpBar" />
                                     <Text layoutX="1.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Experience" />
                                     <Text layoutX="3.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Money:" />
@@ -67,6 +67,13 @@
                                     <Text layoutX="3.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Health pots:" />
                                     <Text fx:id="hppotAmmount" layoutX="75.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pots" />
                                     <Text fx:id="playerXperienceDisplay" layoutX="29.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="AnchorEnem" prefHeight="160.0" prefWidth="103.0">
+                                 <children>
+                                    <Text fx:id="enemyName" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enemy" />
+                                    <ProgressBar id="healthBar" fx:id="enemyHealthbar" layoutY="48.0" maxHeight="1.0" prefHeight="1.0" prefWidth="103.0" progress="0.48" stylesheets="@../../../ddad/src/application/application.css" />
+                                    <Text fx:id="enemyhpAmmount" layoutX="44.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HP" />
                                  </children>
                               </AnchorPane>
                            </children>

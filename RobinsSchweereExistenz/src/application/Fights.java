@@ -6,7 +6,7 @@ public class Fights {
 	
 	boolean yourTurn = false;
 	Random rand = new Random();
-	
+	float enemyNewMax = 50;
 	
 	Fights(Controller GUI, Game GAME){
 		this.GUI = GUI;
@@ -28,10 +28,12 @@ public class Fights {
 	public  void isFight(Raum Raum) {
 		if (Raum.isEnemy()) {
 			System.out.println("n gegner oh nee!");
+			GUI.displayEnem();
 			Fight();
 		}
 		else {
 			System.out.println("kein gegner o jaaa!");
+			GUI.disableEnem();
 		}
 	}
 	
@@ -39,9 +41,9 @@ public class Fights {
 		yourTurn = false;
 		GAME.encounterIsWaitingForInput = false;
 		System.out.println("instakill");
-    	int temp = player.getAttackDamage();
-    	enemy.setEnemyHealth(-1);
-    	GUI.consoleWrite("Du triffst " + enemy.enemyname + " für " + temp + " Schaden und " + enemy.enemyname + " hat noch " + enemy.getEnemyHealth() + " Leben!");
+    	int temp = player.attackDamage;
+    	enemy.health = -1;
+    	GUI.consoleWrite("Du triffst " + enemy.name + " für " + temp + " Schaden und " + enemy.name + " hat noch " + enemy.health + " Leben!");
     	GUI.update(player);
     	checkFight();
 	}
@@ -49,6 +51,7 @@ public class Fights {
 	private  void Fight() {
 		player = GUI.getPlayer();
 		enemy = new Enemy(player);
+		enemyNewMax = enemy.health;
 		GUI.update(player);
 		encounter();
 	}
@@ -60,9 +63,9 @@ public class Fights {
     	int acc = rand.nextInt(100);
     	GUI.consoleWrite("Du würfelst " + acc);
     	if (player.getHitChance() >= acc) {
-        	int temp = player.getAttackDamage();
-        	enemy.setEnemyHealth(enemy.getEnemyHealth()-temp);
-        	GUI.consoleWrite("Du triffst " + enemy.enemyname + " für " + temp + " Schaden und " + enemy.enemyname + " hat noch " + enemy.getEnemyHealth() + " Leben!");
+        	int temp = player.attackDamage;
+        	enemy.health = enemy.health-temp;
+        	GUI.consoleWrite("Du triffst " + enemy.name + " für " + temp + " Schaden und " + enemy.name + " hat noch " + enemy.health + " Leben!");
     	}
     	else {
     		GUI.consoleWrite("Du hast den Gegner verfehlt!");
@@ -70,9 +73,9 @@ public class Fights {
     	
     	acc = rand.nextInt(100);
     	if (enemy.accuracy >= acc) {
-    		int temp = rand.nextInt(enemy.getMaxEnemyAttackDMG());
-    		player.setHealth(player.getHealth()-temp);
-    		GUI.consoleWrite("Der Gegner trifft dich für " + temp + " Schaden und du hast noch " + player.getHealth() + " Leben!");
+    		int temp = rand.nextInt(enemy.maxAttackDMG);
+    		player.health = (player.health-temp);
+    		GUI.consoleWrite("Der Gegner trifft dich für " + temp + " Schaden und du hast noch " + player.health + " Leben!");
     	}
     	else {
     		GUI.consoleWrite("Der Gegner hat dich verfehlt!");
@@ -92,10 +95,10 @@ public class Fights {
     		acc = rand.nextInt(100);
     		GUI.consoleWrite("Du würfelst " + acc);
     		if (player.getHitChance() >= acc) {
-            	int temp = rand.nextInt(player.getAttackDamage()/2)+5;
+            	int temp = rand.nextInt(player.attackDamage/2)+5;
             	
-            	enemy.setEnemyHealth(enemy.getEnemyHealth()-temp);
-            	GUI.consoleWrite("Du triffst " + enemy.enemyname + " für " + temp + " Schaden und " + enemy.enemyname + " hat noch " + enemy.getEnemyHealth() + " Leben!");
+            	enemy.health = (enemy.health-temp);
+            	GUI.consoleWrite("Du triffst " + enemy.name + " für " + temp + " Schaden und " + enemy.name + " hat noch " + enemy.health + " Leben!");
         	}
         	else {
         		GUI.consoleWrite("Du hast den Gegner verfehlt!");
@@ -105,9 +108,9 @@ public class Fights {
     	
     	acc = rand.nextInt(100);
     	if (enemy.accuracy >= acc) {
-    		int temp = rand.nextInt(enemy.getMaxEnemyAttackDMG());
-    		player.setHealth(player.getHealth()-temp);
-    		GUI.consoleWrite("Der Gegner trifft dich für " + temp + " Schaden und du hast noch " + player.getHealth() + " Leben!");
+    		int temp = rand.nextInt(enemy.maxAttackDMG);
+    		player.health = (player.health-temp);
+    		GUI.consoleWrite("Der Gegner trifft dich für " + temp + " Schaden und du hast noch " + player.health + " Leben!");
     	}
     	else {
     		GUI.consoleWrite("Der Gegner hat dich verfehlt!");
@@ -128,7 +131,7 @@ public class Fights {
     	
     	acc = rand.nextInt(100);
     	if (enemy.accuracy >= acc) {
-    		int temp = rand.nextInt(enemy.getMaxEnemyAttackDMG());
+    		int temp = rand.nextInt(enemy.maxAttackDMG);
     		acc = rand.nextInt(100);
     		GUI.consoleWrite("Der Gegner greift dich an!");
     		GUI.consoleWrite("Du würfelst " + acc);
@@ -136,8 +139,8 @@ public class Fights {
     			GUI.consoleWrite("Due kannst den Gegnerischen Angriff mit deinem Schild abwenden!");
     		}
     		else {
-    			player.setHealth(player.getHealth()-temp);
-    			GUI.consoleWrite("Der Gegner trifft dich für " + temp + " Schaden und du hast noch " + player.getHealth() + " Leben!");
+    			player.health = (player.health-temp);
+    			GUI.consoleWrite("Der Gegner trifft dich für " + temp + " Schaden und du hast noch " + player.health + " Leben!");
     		}
     	}
     	else {
@@ -152,10 +155,10 @@ public class Fights {
 			yourTurn = false;
 			GAME.encounterIsWaitingForInput = false;
 			//GUI.update(player);
-			if(player.getHealthPots() > 0) {
+			if(player.healthPots > 0) {
 				player.health += player.healthPotsHeal;
 				player.healthPots --;
-				GUI.pottiboii(player.getHealthPots());
+				GUI.pottiboii(player.healthPots);
 				if (player.health > player.maxHealth) {
 					player.health = player.maxHealth;
 					//GUI.update(player);
@@ -167,7 +170,7 @@ public class Fights {
 				if (player.health <= 0) {
 					GUI.consoleWrite("Youve taken too much damage and have died.");
 				}
-				else if (enemy.getEnemyHealth() <= 0) {
+				else if (enemy.health <= 0) {
 					GUI.consoleWrite("The enemy has died");
 					//lootdrop();
 					//newEnemy();
@@ -183,7 +186,7 @@ public class Fights {
 					GUI.consoleWrite("Youve taken too much damage and have died.");
 					//response = true;
 				}
-				else if (enemy.getEnemyHealth() <= 0) {
+				else if (enemy.health <= 0) {
 					GUI.consoleWrite("The enemy has died");
 					//newEnemy();
 				}
@@ -194,7 +197,7 @@ public class Fights {
 		}
 		else if (!yourTurn && !GAME.encounterIsWaitingForInput){
 	    	System.out.println("potion");
-			if(player.getHealthPots() > 0) {
+			if(player.healthPots > 0) {
 				player.health += player.healthPotsHeal;
 				player.healthPots --;
 				if (player.health > player.maxHealth) {
@@ -203,7 +206,7 @@ public class Fights {
 				}
 				GUI.update(player);
 				GUI.consoleWrite("Du hast einen Lebens Elixir getrunken und deine Lebenspunkte auf " + player.health + " erhöht!");
-				GUI.pottiboii(player.getHealthPots());
+				GUI.pottiboii(player.healthPots);
 			}
 		}
     }
@@ -213,10 +216,10 @@ public class Fights {
 			yourTurn = false;
 			GAME.encounterIsWaitingForInput = false;
 			//GUI.update(player);
-			if(player.getHealthPots() > 0) {
+			if(player.healthPots > 0) {
 				player.health += player.healthPotsHeal;
 				player.healthPots --;
-				GUI.pottiboii(player.getHealthPots());
+				GUI.pottiboii(player.healthPots);
 				if (player.health > player.maxHealth) {
 					player.health = player.maxHealth;
 					//GUI.update(player);
@@ -228,7 +231,7 @@ public class Fights {
 				if (player.health <= 0) {
 					GUI.consoleWrite("Youve taken too much damage and have died.");
 				}
-				else if (enemy.getEnemyHealth() <= 0) {
+				else if (enemy.health <= 0) {
 					GUI.consoleWrite("The enemy has died");
 					//lootdrop();
 					//newEnemy();
@@ -244,7 +247,7 @@ public class Fights {
 					GUI.consoleWrite("Youve taken too much damage and have died.");
 					//response = true;
 				}
-				else if (enemy.getEnemyHealth() <= 0) {
+				else if (enemy.health <= 0) {
 					GUI.consoleWrite("The enemy has died");
 					//newEnemy();
 				}
@@ -259,11 +262,11 @@ public class Fights {
     }
     
     private void checkFight() {
-		if (player.getHealth()<=0) {
+		if (player.health<=0) {
 			System.out.println("you ded");
 			GUI.consoleWrite("Du bist gestorben!");
 		}
-		else if (enemy.getEnemyHealth()<=0) {
+		else if (enemy.health<=0) {
 			System.out.println("enemy ded");
 			GUI.consoleWrite("Der Gegner ist gestorben!");
 			xpdrop();
@@ -277,24 +280,24 @@ public class Fights {
 	private void encounter() {
 		//turn ++;
 		GUI.consoleWrite("----------------------------------------------");
-		GUI.consoleWrite(" Gegner " + enemy.getEnemyname() + " Nummer " + enemy.getEnemyNBR());
+		GUI.consoleWrite(" Gegner " + enemy.name + " Nummer " + enemy.NBR);
 		GUI.consoleWrite("----------------------------------------------");
-		GUI.consoleWrite("\t Spieler Lebenspunkte: "+player.getHealth());
-		GUI.consoleWrite("\t Gegner Lebenspunkte: " + enemy.getEnemyHealth());
+		GUI.consoleWrite("\t Spieler Lebenspunkte: "+player.health);
+		GUI.consoleWrite("\t Gegner Lebenspunkte: " + enemy.health);
 		GUI.consoleWrite("\t Was willst du machen? \n");
 		yourTurn = true;
 		GAME.encounterIsWaitingForInput = true;
 	}
 	
 	private void xpdrop() {
-		int exp = (5*(player.getIntelligence()/2)*enemy.getLevel()/2)+(rand.nextInt(50)*player.getLuck()/20);
+		int exp = (5*(player.intelligence/2)*enemy.level/2)+(rand.nextInt(50)*player.luck/20);
 		GUI.consoleWrite("Du erhältst vom Gegner " + exp + "Erfahrung!");
-		player.setExperience((player.getExperience()+exp));
-		if (player.getExperience()>player.getXpToMax()) {
-			player.setExperience(player.getExperience()-player.getXpToMax());
-			player.setLevel(player.getLevel()+1);
-			player.setPerkpoints(player.getPerkpoints()+1);
-			GUI.consoleWrite("Du erreichst das Level" + player.getLevel() + " und hast noch " + player.getPerkpoints() + " Meisterschaftspunkte!");
+		player.experience = (player.experience+exp);
+		if (player.experience>player.getXpToMax()) {
+			player.experience = player.experience-player.getXpToMax();
+			player.level = (player.level+1);
+			player.experience =  player.perkpoints+1;
+			GUI.consoleWrite("Du erreichst das Level" + player.level + " und hast noch " + player.perkpoints + " Meisterschaftspunkte!");
 		}
 		GUI.update(player);
 	}
