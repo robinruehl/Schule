@@ -1,7 +1,10 @@
 package application;
 
 public class  Game {
-
+	
+	/*das Spiel selber*/
+	
+	//unsere Räume
 	Raum CurrentRoom;
 	Raum StartRaum;
 	Raum MittlererRaum;
@@ -10,36 +13,44 @@ public class  Game {
 	Raum SuedlicherRaum;
 	int createdrooms = 1;
 	int initrooms = 1;
+	
+	//Mein array für alle Räume nach osten zum testen vom kämpfen
 	Raum[] extrarooms;
 	
 	Skills Skills;
 	Player player;
 	Controller GUI;
 	Fights FIGHT;
+	
 	boolean encounterIsWaitingForInput;
-
+	
+	//Konstruktor
 	Game (Controller GUI) {
 		this.GUI = GUI;
 	}
 	
+	//Räume erstellen
 	public void createRooms() {
-		extrarooms = new Raum[101];
-		StartRaum = new Raum("Du siehst einen langweiligen Raum, nur mit einer Tür in oestlicher Richtung.", null, MittlererRaum, null, null, false);
+		extrarooms = new Raum[101];	//101 extra Räume
+		
+		//Räume erstellen
+		StartRaum = new Raum("Du siehst einen langweiligen Raum, nur mit einer Tür in oestlicher Richtung.",  false);
 		System.out.println("created StartRaum");
 		//consoleWrite("created StartRaum");
-		MittlererRaum = new Raum("Du siehst einen weniger langweiligen Raum mit Türen in jeder Richtung.", NoerdlicherRaum, OestlicherRaum, SuedlicherRaum, StartRaum, true);
+		MittlererRaum = new Raum("Du siehst einen weniger langweiligen Raum mit Türen in jeder Richtung.", true);
 		System.out.println("created MittlererRaum");
 		//consoleWrite("created MittlererRaum");
-		NoerdlicherRaum = new Raum("Du siehst einen langweiligen Raum und du kannst nur zurrueck gehen.", null, null, MittlererRaum, null, false);
+		NoerdlicherRaum = new Raum("Du siehst einen langweiligen Raum und du kannst nur zurrueck gehen.", false);
 		System.out.println("created NoerdlicherRaum");
 		//consoleWrite("created NoerdlicherRaum");
-		OestlicherRaum = new Raum("Du siehst einen langweiligen Raum mit einer Tür nach Westen und einer grün glühenden Tür nach Osten.", null, extrarooms[0], null, MittlererRaum, false);
+		OestlicherRaum = new Raum("Du siehst einen langweiligen Raum mit einer Tür nach Westen und einer grün glühenden Tür nach Osten.", false);
 		System.out.println("created OestlicherRaum");
 		//consoleWrite("created OestlicherRaum");
-		SuedlicherRaum = new Raum("Du siehst einen langweiligen Raum und du kannst nur zurrueck gehen.", SuedlicherRaum, null, null, null, false);
+		SuedlicherRaum = new Raum("Du siehst einen langweiligen Raum und du kannst nur zurrueck gehen.", false);
 		System.out.println("created SuedlicherRaum");
 		//consoleWrite("created OestlicherRaum");
 		
+		//Die verbundenen Räume zuweisen...
 		StartRaum.setRooms(null, MittlererRaum, null, null);
 		MittlererRaum.setRooms(NoerdlicherRaum, OestlicherRaum, SuedlicherRaum, StartRaum);
 		NoerdlicherRaum.setRooms(null, null, MittlererRaum, null);
@@ -47,39 +58,52 @@ public class  Game {
 		SuedlicherRaum.setRooms(MittlererRaum, null, null, null);
 		SuedlicherRaum.setRooms(MittlererRaum, null, null, null);
 		
+		//Verbindungsraum der langen Kette von Räumen erstellen
 		extrarooms[0] = new Raum("Du siehst einen langweiligen Raum mit einer Tür nach Osten und nach Westen.", null, extrarooms[1], null, OestlicherRaum, true);
-				
+		
+		//Die Raumkette jetzt herzaubern
 		while (createdrooms <= 98) {
 			System.out.println(createdrooms);
-			extrarooms[createdrooms] = new Raum("Du siehst einen langweiligen Raum mit einer Tür nach Osten und nach Westen.", null, extrarooms[createdrooms+1], null, extrarooms[initrooms-1], true);
+			extrarooms[createdrooms] = new Raum("Du siehst einen langweiligen Raum mit einer Tür nach Osten und nach Westen.", true);
 			createdrooms++;
 		};
+		
+		/*while (createdrooms <= 98) {System.out.println(createdrooms);extrarooms[createdrooms] = new Raum("Du siehst einen langweiligen Raum mit einer Tür nach Osten und nach Westen.", null, extrarooms[createdrooms+1], null, extrarooms[initrooms-1], true);createdrooms++;};*/
+		
+		
+		//Die verbundenen Räume des oestlichen Raums und des verbindungs Raums nochmal zuweisen...
 		OestlicherRaum.setRooms(null, extrarooms[0], null, MittlererRaum);
 		extrarooms[0].setRooms(null, extrarooms[1], null, OestlicherRaum);
+		
+		//Die verbundenen Räume der Raumkette jetzt neu zuweisen weil es nur so geht.
 		while (initrooms <= 98) {
 			extrarooms[initrooms].setRooms(null, extrarooms[initrooms+1], null, extrarooms[initrooms-1]);
 			initrooms++;
 		}
+		
+		//nochmal um sicher zu gehen...
 		extrarooms[0].setRooms(null, extrarooms[1], null, OestlicherRaum);
 		System.out.println(extrarooms[0].getOstRaum().toString());
 		
 		FIGHT = new Fights(GUI, this);
-		player = GUI.getPlayer();
 		Skills = new Skills();
+		player = GUI.getPlayer();
 	}
 	
+	
+	//Bewegen :)
 	public void goNorth() {
-		if (getCurrentRoom().getNordRaum() !=null) {
-			setCurrentRoom(getCurrentRoom().getNordRaum());
-			System.out.println("norden gegangen");
-			GUI.consoleWrite("Du bist nach Norden gegangen!");
+		if (getCurrentRoom().getNordRaum() !=null) {			//falls es einen solchen Raum giebt
+			setCurrentRoom(getCurrentRoom().getNordRaum());		//setze ihn als dein jetzigen Raum
+			System.out.println("norden gegangen");				
+			GUI.consoleWrite("Du bist nach Norden gegangen!");			//Ausgeben in die Konsole
 			System.out.println("you are now in the room: "+getCurrentRoom().toString());
 			System.out.println("reading desc");
-			GUI.consoleWrite(getCurrentRoom().getBescshreibung());
+			GUI.consoleWrite(getCurrentRoom().getBeschreibung());		//Raumbeschreibung auslesen
 			System.out.println("fighting check n stuff");
-			FIGHT.isFight(getCurrentRoom());
+			FIGHT.isFight(getCurrentRoom());							//Überprüfen ob ein Gegner im Raum ist
 		}
-		else {
+		else {													//falls kein solcher Raum existiert nichts machen außer in die Konsole eintragen, dass es nicht geht
 			System.out.println("nicht nach norden gegangen");
 			GUI.consoleWrite("Du bist nicht nach Norden gegangen!");
 		}
@@ -92,7 +116,7 @@ public class  Game {
 			GUI.consoleWrite("Du bist nach Osten gegangen!");
 			System.out.println("you are now in the room: "+getCurrentRoom().toString());
 			System.out.println("reading desc");
-			GUI.consoleWrite(getCurrentRoom().getBescshreibung());
+			GUI.consoleWrite(getCurrentRoom().getBeschreibung());
 			System.out.println("fighting check n stuff");
 			FIGHT.isFight(getCurrentRoom());
 		}
@@ -109,7 +133,7 @@ public class  Game {
 			GUI.consoleWrite("Du bist nach Sueden gegangen!");
 			System.out.println("you are now in the room: "+getCurrentRoom().toString());
 			System.out.println("reading desc");
-			GUI.consoleWrite(getCurrentRoom().getBescshreibung());
+			GUI.consoleWrite(getCurrentRoom().getBeschreibung());
 			System.out.println("fighting check n stuff");
 			FIGHT.isFight(getCurrentRoom());
 		}
@@ -126,7 +150,7 @@ public class  Game {
 			GUI.consoleWrite("Du bist nach Westen gegangen!");
 			System.out.println("you are now in the room: "+getCurrentRoom().toString());
 			System.out.println("reading desc");
-			GUI.consoleWrite(getCurrentRoom().getBescshreibung());
+			GUI.consoleWrite(getCurrentRoom().getBeschreibung());
 			FIGHT.isFight(getCurrentRoom());
 		}
 		else {
@@ -135,6 +159,7 @@ public class  Game {
 		}
 	}
 	
+	//getter und setter
 	public Player getPlayer() {
 		return player;
 	}

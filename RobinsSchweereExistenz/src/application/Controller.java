@@ -124,7 +124,7 @@ public class Controller {
     	player = new Player();
     	
     	//Die Beschreibung des ersten Raums laden.
-    	consoleWrite(GAME.CurrentRoom.getBescshreibung());
+    	consoleWrite(GAME.CurrentRoom.getBeschreibung());
     	
     	//ScrollbarListener generieren, sodass die konsole immer mit Scrolled.
     	if (!scrollbarListener){

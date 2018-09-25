@@ -4,9 +4,11 @@ import java.util.Random;
 
 public class Fights {
 	
+	//tuhen sie es sich bitte nicht an es ist cancer
+	
 	boolean yourTurn = false;
 	Random rand = new Random();
-	float enemyNewMax = 50;
+	float enemyNewMax = 50; //habe schon einen wert gegeben, da dann etwas im GUI am anfang dargestellt werden kann oder so
 	
 	Fights(Controller GUI, Game GAME){
 		this.GUI = GUI;
@@ -290,7 +292,11 @@ public class Fights {
 	}
 	
 	private void xpdrop() {
-		int exp = (5*(player.intelligence/2)*enemy.level/2)+(rand.nextInt(50)*player.luck/20);
+		
+		//alt
+		/*int exp = (5*(player.intelligence/2)*enemy.level/2)+(rand.nextInt(50)*player.luck/20);*/
+		
+		int exp = (5*(player.intelligence/2)*enemy.level/2)+(rand.nextInt(50)*2);
 		GUI.consoleWrite("Du erhältst vom Gegner " + exp + "Erfahrung!");
 		player.experience = (player.experience+exp);
 		if (player.experience>player.getXpToMax()) {

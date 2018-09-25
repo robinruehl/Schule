@@ -3,9 +3,7 @@ package application;
 public class Skills {
 	
 
-	public Skills() {
-		// TODO Auto-generated constructor stub
-	}
+	public Skills() {}
 
 	void skillincr(int skill, Player player) {
 		if (skill == 1) {
