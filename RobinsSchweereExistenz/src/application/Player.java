@@ -33,12 +33,13 @@ public class Player {
 		}
 	 
 	 
-	 
+	 //Die bentigte xp zum hochleveln abrufen
 	public int getXpToMax() {
 		int xptomax = 50+level*50;
 		return xptomax;
 	}
 	
+	//Die Trefferwarscheinlichkeit berechnen
 	public float getHitChance() {
 		float temp = luck;
 		float temp2 = 1;

@@ -55,6 +55,7 @@ public class Fights {
 		enemy = new Enemy(player);
 		enemyNewMax = enemy.health;
 		GUI.update(player);
+		GUI.consoleWrite("Ein Gegner ist aufgetaucht!");
 		encounter();
 	}
 	
@@ -75,7 +76,7 @@ public class Fights {
     	
     	acc = rand.nextInt(100);
     	if (enemy.accuracy >= acc) {
-    		int temp = rand.nextInt(enemy.maxAttackDMG);
+    		int temp = rand.nextInt(enemy.maxAttackDMG/2)+enemy.maxAttackDMG/2;
     		player.health = (player.health-temp);
     		GUI.consoleWrite("Der Gegner trifft dich für " + temp + " Schaden und du hast noch " + player.health + " Leben!");
     	}
@@ -273,6 +274,8 @@ public class Fights {
 			GUI.consoleWrite("Der Gegner ist gestorben!");
 			xpdrop();
 			GAME.CurrentRoom.setenemy(false);
+			GUI.consoleWrite("----------------------------------------------");
+			GUI.consoleWrite(GAME.CurrentRoom.getBeschreibung());
 		}
 		else {
 			encounter();
@@ -282,7 +285,7 @@ public class Fights {
 	private void encounter() {
 		//turn ++;
 		GUI.consoleWrite("----------------------------------------------");
-		GUI.consoleWrite(" Gegner " + enemy.name + " Nummer " + enemy.NBR);
+		GUI.consoleWrite(" Gegner " + enemy.name);
 		GUI.consoleWrite("----------------------------------------------");
 		GUI.consoleWrite("\t Spieler Lebenspunkte: "+player.health);
 		GUI.consoleWrite("\t Gegner Lebenspunkte: " + enemy.health);
@@ -302,7 +305,7 @@ public class Fights {
 		if (player.experience>player.getXpToMax()) {
 			player.experience = player.experience-player.getXpToMax();
 			player.level = (player.level+1);
-			player.experience =  player.perkpoints+1;
+			player.perkpoints ++;
 			GUI.consoleWrite("Du erreichst das Level" + player.level + " und hast noch " + player.perkpoints + " Meisterschaftspunkte!");
 		}
 		GUI.update(player);

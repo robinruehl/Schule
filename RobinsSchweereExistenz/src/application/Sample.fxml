@@ -32,7 +32,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="consoleinp" layoutX="8.0" layoutY="298.0" prefHeight="25.0" prefWidth="468.0" promptText="Console" />
+                        <TextField fx:id="consoleinp" layoutX="8.0" layoutY="298.0" prefHeight="25.0" prefWidth="447.0" promptText="Console" />
                         <ScrollPane fx:id="consoleTextScrollPane" pannable="true" prefHeight="290.0" prefWidth="574.0" vbarPolicy="ALWAYS">
                            <content>
                               <TitledPane fx:id="titledPane" alignment="TOP_LEFT" animated="false" contentDisplay="TOP" prefHeight="279.0" prefWidth="556.0" text="Console">
@@ -43,13 +43,13 @@
                            </content>
                         </ScrollPane>
                       <Button fx:id="buttonStart" layoutX="531.0" layoutY="298.0" mnemonicParsing="false" onAction="#startGame" prefHeight="25.0" prefWidth="43.0" text="Start" />
-                        <Button fx:id="buttonEnter" layoutX="482.0" layoutY="298.0" mnemonicParsing="false" onAction="#newInput" prefHeight="25.0" prefWidth="45.0" text="Enter" />
+                        <Button fx:id="buttonEnter" layoutX="462.0" layoutY="298.0" mnemonicParsing="false" onAction="#newInput" prefHeight="25.0" prefWidth="63.0" text="Eingabe" />
                         <AnchorPane layoutX="689.0" layoutY="1.0" prefHeight="187.0" prefWidth="103.0">
                         </AnchorPane>
-                        <Button layoutX="619.0" layoutY="212.0" mnemonicParsing="false" onAction="#goNorth" text="↑" />
-                        <Button layoutX="641.0" layoutY="237.0" mnemonicParsing="false" onAction="#goEast" text="→" />
-                        <Button layoutX="619.0" layoutY="262.0" mnemonicParsing="false" onAction="#goSoutht" text="↓" />
-                        <Button layoutX="592.0" layoutY="237.0" mnemonicParsing="false" onAction="#goWest" text="←" />
+                        <Button layoutX="620.0" layoutY="212.0" mnemonicParsing="false" onAction="#goNorth" text="↑N" />
+                        <Button layoutX="635.0" layoutY="237.0" mnemonicParsing="false" onAction="#goEast" text="→O" />
+                        <Button layoutX="619.0" layoutY="262.0" mnemonicParsing="false" onAction="#goSoutht" text="↓S" />
+                        <Button layoutX="596.0" layoutY="237.0" mnemonicParsing="false" onAction="#goWest" prefHeight="25.0" prefWidth="38.0" text="←W" />
                         <AnchorPane layoutX="579.0" layoutY="14.0" prefHeight="185.0" prefWidth="216.0">
                            <children>
                               <AnchorPane fx:id="AnchorPlayer" layoutX="108.0" prefHeight="185.0" prefWidth="103.0">
@@ -78,11 +78,11 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <Button layoutX="678.0" layoutY="212.0" mnemonicParsing="false" onAction="#slash" text="Slash" />
-                        <Button layoutX="678.0" layoutY="262.0" mnemonicParsing="false" onAction="#potion" text="Potion" />
-                        <Button layoutX="721.0" layoutY="212.0" mnemonicParsing="false" onAction="#stab" text="Stab" />
-                        <Button layoutX="678.0" layoutY="237.0" mnemonicParsing="false" onAction="#block" text="Block" />
-                        <Button layoutX="723.0" layoutY="237.0" mnemonicParsing="false" onAction="#instakill" text="kill" />
+                        <Button layoutX="689.0" layoutY="212.0" mnemonicParsing="false" onAction="#slash" text="Schlagen" />
+                        <Button layoutX="695.0" layoutY="286.0" mnemonicParsing="false" onAction="#potion" text="Potion" />
+                        <Button layoutX="691.0" layoutY="237.0" mnemonicParsing="false" onAction="#stab" text="Stechen" />
+                        <Button layoutX="686.0" layoutY="262.0" mnemonicParsing="false" onAction="#block" text="Abwehren" />
+                        <Button layoutX="761.0" layoutY="299.0" mnemonicParsing="false" onAction="#instakill" text="kill" />
                      </children>
                   </AnchorPane>
             </content>
@@ -112,7 +112,7 @@
                               <Button fx:id="increaseDamageStat" layoutX="-1.0" layoutY="45.0" mnemonicParsing="false" onAction="#incAtt" text="+1" />
                               <Button fx:id="increaseHealthStat" layoutX="-1.0" layoutY="15.0" mnemonicParsing="false" onAction="#incMaxHealth" text="+1" />
                               <Button fx:id="increaseLuckStat" layoutX="-1.0" layoutY="75.0" mnemonicParsing="false" onAction="#incLuck" text="+1" />
-                              <Button fx:id="increaseIntelligenceStat" layoutX="-1.0" layoutY="105.0" mnemonicParsing="false" onAction="#init" text="+1" />
+                              <Button fx:id="increaseIntelligenceStat" layoutX="-1.0" layoutY="105.0" mnemonicParsing="false" onAction="#incInt" text="+1" />
                               <Text layoutX="39.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Perkpoints" />
                               <Text fx:id="perkpoints" layoutX="34.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Points">
                                  <font>

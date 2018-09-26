@@ -75,7 +75,7 @@ public class  Game {
 		OestlicherRaum.setRooms(null, extrarooms[0], null, MittlererRaum);
 		extrarooms[0].setRooms(null, extrarooms[1], null, OestlicherRaum);
 		
-		//Die verbundenen Räume der Raumkette jetzt neu zuweisen weil es nur so geht.
+		//Die verbundenen Räume der Raumkette jetzt zuweisen.
 		while (initrooms <= 98) {
 			extrarooms[initrooms].setRooms(null, extrarooms[initrooms+1], null, extrarooms[initrooms-1]);
 			initrooms++;
@@ -99,13 +99,14 @@ public class  Game {
 			GUI.consoleWrite("Du bist nach Norden gegangen!");			//Ausgeben in die Konsole
 			System.out.println("you are now in the room: "+getCurrentRoom().toString());
 			System.out.println("reading desc");
+			GUI.consoleWrite("----------------------------------------------");
 			GUI.consoleWrite(getCurrentRoom().getBeschreibung());		//Raumbeschreibung auslesen
 			System.out.println("fighting check n stuff");
 			FIGHT.isFight(getCurrentRoom());							//Überprüfen ob ein Gegner im Raum ist
 		}
 		else {													//falls kein solcher Raum existiert nichts machen außer in die Konsole eintragen, dass es nicht geht
 			System.out.println("nicht nach norden gegangen");
-			GUI.consoleWrite("Du bist nicht nach Norden gegangen!");
+			GUI.consoleWrite("Du kannst nicht nach Norden gehen!");
 		}
 	}
 	
@@ -116,13 +117,14 @@ public class  Game {
 			GUI.consoleWrite("Du bist nach Osten gegangen!");
 			System.out.println("you are now in the room: "+getCurrentRoom().toString());
 			System.out.println("reading desc");
+			GUI.consoleWrite("----------------------------------------------");
 			GUI.consoleWrite(getCurrentRoom().getBeschreibung());
 			System.out.println("fighting check n stuff");
 			FIGHT.isFight(getCurrentRoom());
 		}
 		else {
 			System.out.println("nicht nach osten gegangen");
-			GUI.consoleWrite("Du bist nicht nach Osten gegangen!");
+			GUI.consoleWrite("Du kannst nicht nach Osten gehen!");
 		}
 	}
 	
@@ -133,13 +135,14 @@ public class  Game {
 			GUI.consoleWrite("Du bist nach Sueden gegangen!");
 			System.out.println("you are now in the room: "+getCurrentRoom().toString());
 			System.out.println("reading desc");
+			GUI.consoleWrite("----------------------------------------------");
 			GUI.consoleWrite(getCurrentRoom().getBeschreibung());
 			System.out.println("fighting check n stuff");
 			FIGHT.isFight(getCurrentRoom());
 		}
 		else {
 			System.out.println("nicht nach sueden gegangen");
-			GUI.consoleWrite("Du bist nicht nach Sueden gegangen!");
+			GUI.consoleWrite("Du kannst nicht nch Sueden gehen!");
 		}
 	}
 	
@@ -150,12 +153,13 @@ public class  Game {
 			GUI.consoleWrite("Du bist nach Westen gegangen!");
 			System.out.println("you are now in the room: "+getCurrentRoom().toString());
 			System.out.println("reading desc");
+			GUI.consoleWrite("----------------------------------------------");
 			GUI.consoleWrite(getCurrentRoom().getBeschreibung());
 			FIGHT.isFight(getCurrentRoom());
 		}
 		else {
 			System.out.println("nicht nach westen gegangen");
-			GUI.consoleWrite("Du bist nicht nach Westen gegangen!");
+			GUI.consoleWrite("Du kannst nicht nacg Westen gehen!");
 		}
 	}
 	
