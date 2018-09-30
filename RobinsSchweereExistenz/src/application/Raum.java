@@ -7,6 +7,9 @@ public class Raum {
 	private Raum OstRaum;
 	private Raum SuedRaum;
 	private Raum WestRaum;
+	private boolean Boss;
+	private boolean DeadEnamy = false;
+
 	//Erster Konstruktor
 	Raum() {
 		this.beschreibung = "placeholder";
@@ -38,6 +41,22 @@ public class Raum {
 		this.Enemy = Enemy;
 	}
 	
+	//Fünfter Konstruktor
+	Raum(String beschreibung, Raum NordRaum, Raum OstRaum, Raum SuedRaum, Raum WestRaum, boolean Enemy, boolean Boss) {
+		this.beschreibung = beschreibung;
+		this.NordRaum = NordRaum;
+		this.SuedRaum = SuedRaum;
+		this.OstRaum = OstRaum;
+		this.WestRaum = WestRaum;
+		this.Enemy = Enemy;
+		this.setBoss(Boss);
+	}
+	//Fünfter Konstruktor
+	Raum(String beschreibung, boolean Enemy, boolean Boss) {
+		this.beschreibung = beschreibung;
+		this.Enemy = Enemy;
+		this.setBoss(Boss);
+	}
 	//Getter und setter
 	public boolean isEnemy() {
 		return Enemy;
@@ -80,5 +99,21 @@ public class Raum {
 		OstRaum = ostRaum;
 		SuedRaum = suedRaum;
 		WestRaum = westRaum;
+	}
+
+	public boolean isBoss() {
+		return Boss;
+	}
+
+	public void setBoss(boolean boss) {
+		Boss = boss;
+	}
+	
+	public boolean isDeadEnamy() {
+		return DeadEnamy;
+	}
+
+	public void setDeadEnamy(boolean deadEnamy) {
+		DeadEnamy = deadEnamy;
 	}
 }
