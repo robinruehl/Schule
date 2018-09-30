@@ -11,6 +11,7 @@ public class  Game {
 	Raum NoerdlicherRaum;
 	Raum OestlicherRaum;
 	Raum SuedlicherRaum;
+	Raum LastRaum;
 	int createdrooms = 1;
 	int initrooms = 1;
 	
@@ -40,7 +41,7 @@ public class  Game {
 		MittlererRaum = new Raum("Du siehst einen weniger langweiligen Raum mit Türen in jeder Richtung.", true);
 		System.out.println("created MittlererRaum");
 		//consoleWrite("created MittlererRaum");
-		NoerdlicherRaum = new Raum("Du siehst einen langweiligen Raum und du kannst nur zurrueck gehen.", false);
+		NoerdlicherRaum = new Raum("Du siehst einen epischen vergoldeten Raum mit Fakeln an der Wand und du kannst nur zurrueck gehen.", true, true);
 		System.out.println("created NoerdlicherRaum");
 		//consoleWrite("created NoerdlicherRaum");
 		OestlicherRaum = new Raum("Du siehst einen langweiligen Raum mit einer Tür nach Westen und einer grün glühenden Tür nach Osten.", false);
@@ -81,10 +82,13 @@ public class  Game {
 			initrooms++;
 		}
 		
+		
 		//nochmal um sicher zu gehen...
 		extrarooms[0].setRooms(null, extrarooms[1], null, OestlicherRaum);
 		System.out.println(extrarooms[0].getOstRaum().toString());
 		
+		LastRaum = new Raum("Du läufst durch einen langen Gang. Nach 3 Stunden findest du eine Tür aus massive Holz, die dreifach so groß ist wie du. Du öfnest sie und befindest dich nun in einer Arena so groß, dass du das Ende nicht sehen kannst. Etwa in der Mitte liegt ein gigantischer Drache. Auf einmal reißen seine Augen auf und er springt in die Luft. Die türen drücken dich nach vorne und schließen sich gewalltvoll. Der Drache landet vor dir und starrt dich wieder an.", null, null, null, extrarooms[98], true, true);
+		LastRaum.setRooms(null, null, extrarooms[98], null);
 		FIGHT = new Fights(GUI, this);
 		Skills = new Skills();
 		player = GUI.getPlayer();
@@ -128,7 +132,7 @@ public class  Game {
 		}
 	}
 	
-	public void goSoutht() {
+	public void goSouth() {
 		if (getCurrentRoom().getSuedRaum() !=null) {
 			setCurrentRoom(getCurrentRoom().getSuedRaum());
 			System.out.println("sueden gegangen");

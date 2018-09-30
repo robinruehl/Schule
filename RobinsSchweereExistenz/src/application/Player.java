@@ -15,7 +15,7 @@ public class Player {
 	 float experience;
 	 int level;
 	 int perkpoints;
-	 float healthPotsHeal = 40;
+	 float healthPotsHeal;
 	 int healthPotDropChance = 50; //in %
 	 
 	 Player() {
@@ -30,6 +30,7 @@ public class Player {
 		 this.experience = 0;
 		 this.level = 1;
 		 this.perkpoints = 25;
+		 this.healthPotsHeal  = 8;
 		}
 	 
 	 

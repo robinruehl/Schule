@@ -74,6 +74,8 @@ public class Controller {
     @FXML
     private AnchorPane AnchorPlayer;
     
+    //das macht vieles einfacher
+    boolean cheats = false;
     
     //Konsole im GUI
     String inputTXT;
@@ -144,14 +146,14 @@ public class Controller {
     	
     	//Falls noch nichts geschrieben wurde,
 		if (consoleTXT == null) {
-			System.out.println("consoleWrite consoleTXT == null");
+			//System.out.println("consoleWrite consoleTXT == null");
 			//System.out.println(text);
 			consoleTXT = text;
 			consoleText.setText(text); // lese ich nur den gegebenen Text aus, da sonst ein Nullpointer Fehler aufkommt
 		}
 		//sonst
 		else{
-			System.out.println("consoleWrite not null");
+			//System.out.println("consoleWrite not null");
 			//System.out.println(text);
 			consoleTXT = consoleTXT + "\n" + text; //den Text zu den vorherigen Text hinzufügen
 			consoleText.setText(consoleTXT); //und den Text in der Konsole neu schreiben
@@ -168,10 +170,7 @@ public class Controller {
     	playerLevel.setText(""+player.level);
     	playerXperienceDisplay.setText(""+player.experience+"/"+player.getXpToMax());
     	healthBar.setProgress(player.health/player.maxHealth);
-    	//Gegner
-    	enemyHealthbar.setProgress(GAME.FIGHT.enemy.health/GAME.FIGHT.enemyNewMax);
-		enemyhpAmmount.setText("" + GAME.FIGHT.enemy.health);
-		enemyName.setText(GAME.FIGHT.enemy.name);
+    	
 		//Sonstige
 		hppotAmmount.setText("" + player.healthPots);
 		
@@ -182,6 +181,11 @@ public class Controller {
 		menuPlayerIntelligence.setText(""+player.intelligence);
     	xpBar.setProgress(player.experience/player.getXpToMax());
     	perkpoints.setText(""+player.perkpoints);
+    	
+    	//Gegner
+    	enemyHealthbar.setProgress(GAME.FIGHT.enemy.health/GAME.FIGHT.enemyNewMax);
+		enemyhpAmmount.setText("" + GAME.FIGHT.enemy.health);
+		enemyName.setText(GAME.FIGHT.enemy.name);
 	}
     
     
@@ -204,21 +208,133 @@ public class Controller {
 		else {						  //aber sonst cleared er dieses Inputfeld
 			input = true;
 			inputTXT = getConsoleinp().getText();
-			consoleWrite(inputTXT);
 			getConsoleinp().setText(null);
 			inputHandler(inputTXT);	  //und leiten ihn zum (sehr billigen, nicht genuzten)Handler weiter.
 		}
 	}
     
-    //kp will vl noch was damit machen.
+    //vergleicht ob bestimmte wörter im input stehen und so funktionieren meine text commands
     public void inputHandler(String input) {
-		System.out.println("inputhandler:"+inputTXT);
-		if (input.equals("norden")) {
+    	System.out.println("inputhandler:"+input);
+    	input.toLowerCase();
+		if (input.contains("gehe")) {
 			//place.
+			if (input.contains("norden")) {
+				goNorth();
+			}
+			else if (input.contains("osten")) {
+				goEast();
+			}
+			else if (input.contains("süden")) {
+				goSouth();
+			}
+			else if (input.contains("westen")) {
+				goWest();
+			}
 		}
-		else if (input.equals("norden")) {
-			//holder.
+		else if (input.contains("stechen")) {
+			stab();
 		}
+		else if (input.contains("schlagen")) {
+			slash();
+		}
+		else if (input.contains("abwehren")) {
+			block();
+		}
+		else if (input.contains("elixir trinken")) {
+			potion();
+		}
+		
+		if (input.contains("untersuchen")) {
+			if (input.contains("gegner")) {
+				if (!GAME.CurrentRoom.isDeadEnamy()) {
+					consoleWrite("--"+GAME.FIGHT.enemy.name+"--");
+					consoleWrite("Der Gegner hat " + GAME.FIGHT.enemy.health + " Leben.");
+					consoleWrite("Der Gegner hat " + GAME.FIGHT.enemy.maxAttackDMG + " maximalen Schaden pro Schlag.");
+					consoleWrite("Der Gegner hat " + GAME.FIGHT.enemy.accuracy + " Genauigkeit");
+					consoleWrite("Der Gegner hat ein Level von " + GAME.FIGHT.enemy.level + ".");
+				}
+				else {
+					consoleWrite("Der Gegner ist tod.");
+				}
+			}
+			else if (input.contains("raum")) {
+				consoleWrite(GAME.CurrentRoom.getBeschreibung());
+			}
+			else if (input.contains("leiche")) {
+				if (GAME.FIGHT.enemy.health <= 0 && !GAME.encounterIsWaitingForInput && GAME.CurrentRoom.isDeadEnamy()) {
+					if (GAME.FIGHT.enemy.looted) {
+						this.consoleWrite("Der Gegner wurde schon von jeglichen Wertsachen geplündert.");
+					}
+					else {
+						consoleWrite("Du untersuchst die leiche.");
+						GAME.FIGHT.droppot();
+						GAME.FIGHT.enemy.looted = true;	
+					}
+					
+				}
+				else {
+					this.consoleWrite("Du kannst keine Leiche finden.");
+				}
+			}
+		}
+		
+		if (input.contains("cheats")) {
+			cheats = !cheats;
+			consoleWrite("player.god");
+			consoleWrite("player.max");
+			consoleWrite("player.kill");
+			consoleWrite("enemy.kill");
+			consoleWrite("enemy.spawn.normal");
+			consoleWrite("enemy.spawn.boss");
+		}
+		
+		if (cheats) {
+			if (input.contains("player.")) {
+				if (input.contains("god")) {
+					player.maxHealth = 999999;
+					player.health = 999999;
+					player.level = 1337;
+					player.attackDamage = 99999;
+					player.luck = 1337;
+					player.accuracy = 1337;
+					player.intelligence = 1337;
+					update(player);
+				}
+				else if(input.contains("max")) {
+					player.perkpoints = 99999;
+					update(player);
+				}
+				else if(input.contains("kill")) {
+					player.health = -1;
+					GAME.FIGHT.checkFight();
+					update(player);
+				}
+			}
+			if (input.contains("enemy.")) {
+				if (input.contains("kill")) {
+					instakill();
+					update(player);
+				}
+				else if (input.contains("spawn.")) {
+					if (input.contains("normal")) {
+						GAME.CurrentRoom.setDeadEnamy(false);
+						GAME.CurrentRoom.setEnemy(true);
+						GAME.CurrentRoom.setBoss(false);
+						GAME.FIGHT.isFight(GAME.CurrentRoom);
+						update(player);
+					}
+					if (input.contains("boss")) {
+						GAME.CurrentRoom.setDeadEnamy(false);
+						GAME.CurrentRoom.setEnemy(true);
+						GAME.CurrentRoom.setBoss(true);
+						GAME.FIGHT.isFight(GAME.CurrentRoom);
+						update(player);
+					}
+				}
+			}
+		}
+		
 	}
     
     //wenn du den gegner zerschneiden willst.
@@ -275,9 +391,9 @@ public class Controller {
     	}
 	}
 	
-	public void goSoutht() { //--
+	public void goSouth() { //--
     	if (!GAME.encounterIsWaitingForInput) { //--
-    		GAME.goSoutht();
+    		GAME.goSouth();
     	}
     	else {
     		consoleWrite("Du kannst nicht davon rennen!"); //--
